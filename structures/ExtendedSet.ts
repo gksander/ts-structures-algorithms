@@ -33,5 +33,8 @@ export class ExtendedSet<T> extends Set<T> {
     return diffed;
   }
 
-  // TODO: Subset
+  // Has a subset
+  hasSubset(A: ExtendedSet<T>): boolean {
+    return [...A].every(el => this.has(el));
+  }
 }

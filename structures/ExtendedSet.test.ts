@@ -77,4 +77,15 @@ describe("ExtendedSet", () => {
       expect(Array.from(D).sort()).toEqual([2].sort());
     });
   });
+
+  describe("ExtendedSet.hasSubset", () => {
+    test("Even does not have Odd subset", () => {
+      expect(Evens.hasSubset(Odds)).toBeFalsy();
+    });
+
+    test("{1, 3} is a subset of Odds", () => {
+      const S = new ExtendedSet<number>([1, 3]);
+      expect(Odds.hasSubset(S)).toBeTruthy();
+    });
+  });
 });
