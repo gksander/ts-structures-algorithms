@@ -1,32 +1,33 @@
-import { once } from "./once";
+import { thisManyTimes } from "./thisManyTimes";
 
 /**
  * Test that once works properly
  */
 const HELLO_WORLD = "Hello world!";
 let helloWorld;
-describe("Once", () => {
+
+describe("thisManyTimes", () => {
   // Setup
   beforeEach(() => {
     helloWorld = jest.fn(() => HELLO_WORLD);
   });
 
-  // Without "once"
-  test(`Without "once", function runs always`, () => {
+  // Without "thisManyTimes"
+  test(`Without "thisManyTimes", function runs always`, () => {
     expect(helloWorld()).toBe(HELLO_WORLD);
     expect(helloWorld()).toBe(HELLO_WORLD);
     expect(helloWorld()).toBe(HELLO_WORLD);
     expect(helloWorld).toHaveBeenCalledTimes(3);
   });
 
-  // Hello world example
-  test(`With "once", function runs once`, () => {
-    const helloWorldOnce = jest.fn(once(helloWorld));
+  // With "thisManyTimes"
+  test(`With "thisManyTimes", function runs n times`, () => {
+    const helloWorldOnce = jest.fn(thisManyTimes(helloWorld, 2));
     expect(helloWorldOnce()).toBe(HELLO_WORLD);
-    expect(helloWorldOnce()).toBeUndefined();
+    expect(helloWorldOnce()).toBe(HELLO_WORLD);
     expect(helloWorldOnce()).toBeUndefined();
     // Call expectations
     expect(helloWorldOnce).toHaveBeenCalledTimes(3);
-    expect(helloWorld).toHaveBeenCalledTimes(1);
+    expect(helloWorld).toHaveBeenCalledTimes(2);
   });
 });
